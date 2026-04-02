@@ -1,1 +1,13 @@
-from fastapi import FastAPI, HTTPException\n\napp = FastAPI()\n\n@app.get("/workforce-computation/")\ndef compute_workforce(area_size: float, efficiency: float, shifts: int, cleaning_intensity: float):\n    if area_size <= 0 or efficiency <= 0 or shifts <= 0 or cleaning_intensity <= 0:\n        raise HTTPException(status_code=400, detail="All parameters must be greater than zero.")\n    \n    # Simple computation of workforce requirements\n    workforce_required = (area_size / (efficiency * cleaning_intensity)) / shifts\n    \n    return {"workforce_required": workforce_required}\n\n","message":"Add workforce computation endpoint to FastAPI application","owner":"cerol51","path":"app/main.py","repo":"industrial-cleaning-calculator"}
+def enhance_workforce_computation_endpoint(data):
+    # Iterate through each Mahal to compute workforce
+    for mahal in data.get('mahals', []):
+        mahal_adı = mahal.get('Mahal Adı')
+        mahal_adedi = mahal.get('Mahal Adedi')
+        birim_süre = mahal.get('Birim Süre')
+
+        # Your logic to compute workforce based on mahal_adı, mahal_adedi, and birim_süre
+        # Example logic (this should be replaced with actual computation logic):
+        workforce_needed = mahal_adedi * birim_süre  # Simple example calculation
+        print(f'Workforce needed for {mahal_adı}: {workforce_needed}')
+
+    return {'status': 'success'} 
